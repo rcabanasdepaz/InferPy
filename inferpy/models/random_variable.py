@@ -241,4 +241,30 @@ for x in UNARY_OPERATORS:
 
 
 
+### other operators
 
+
+
+
+def __add_other_operator():
+
+    import inferpy.models.deterministic
+
+    name = "__eq__"
+    cls = RandomVariable
+    def operator(self, other):
+
+        res = inferpy.models.Deterministic()
+
+        op1 = self.base_object
+        op2 = other.base_object if isinstance(other, RandomVariable) else other
+
+        return  tf.equal(op1,op2)
+
+
+    operator.__doc__ = "documentation for " + name
+    operator.__name__ = name
+    setattr(cls, operator.__name__, operator)
+
+
+__add_other_operator()
